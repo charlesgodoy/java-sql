@@ -1,0 +1,75 @@
+SELECT *
+FROM Customers
+WHERE City = "London"
+
+---------------------
+
+SELECT *
+FROM customers
+WHERE postalcode = "1010"
+
+---------------------
+
+SELECT *
+FROM suppliers
+WHERE supplierid = "11"
+
+---------------------
+
+SELECT *
+FROM orders
+ORDER BY orderdate DESC
+
+---------------------
+
+SELECT *
+FROM suppliers
+WHERE length(SupplierName) > 20
+
+---------------------
+
+SELECT *
+FROM customers
+WHERE customername LIKE '%market%'
+
+----------------------
+
+INSERT INTO customers (customername, contactname, address, city, postalcode, country)
+VALUES ('The Shire', 'Bilbo Baggins', '1 Hobbit-Hole', 'Bag End', '111', 'Middle Earth')
+
+---------------------
+
+UPDATE customers
+SET postalcode = '11122'
+WHERE customerid = 92
+
+--------------------
+
+SELECT customername
+FROM orders o, customers c
+WHERE o.customerid = c.customerid
+GROUP BY c.customername
+ORDER BY c.customername
+
+--------------------
+
+SELECT customername, count(*) as Num_Of_Orders
+FROM orders LEFT JOIN customers
+ON orders.customerid = customers. customerid
+GROUP BY orders.customerid
+ORDER BY Num_OF_Orders DESC
+
+
+--------------------
+
+SELECT c.city, count(o.orderid) as orders
+FROM orders o, customers c
+WHERE o.customerid = c.customerid
+GROUP BY c.city
+ORDER BY c.city
+
+--------------------
+
+DELETE
+FROM customers
+WHERE customerid NOT IN (SELECT customerid FROM orders)
